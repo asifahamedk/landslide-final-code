@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Detection</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            margin: 20px;
+            text-align: center;
+            background-image: url('https://image.cdn2.seaart.me/2024-08-09/cqqvq55e878c73cscekg/342d418499d397a65ba7712429a5146b_high.webp'); /* Add your background image URL here */
+            background-size: cover; /* Ensure the image covers the entire page */
+            background-position: center; /* Center the background image */
+            background-attachment: fixed; /* Keep the background fixed while scrolling */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Add slight transparency to container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .heading-box h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #4caf50; /* Keep the heading color green */
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #4caf50; /* Keep the color green */
+        }
+
+        .heading-box {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #e0f2f1; /* Change the background color to a lighter shade */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin-top: 0;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .result-box {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .predicted-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        figcaption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading-box">
+            <h1>People Detection</h1>
+        </div>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% else %}
+            <div class="result-box">
+                <div class="heading-box">
+                    <h2>Predicted Image:</h2>
+                </div>
+                <figure>
+                    <img class="predicted-image" src="{{ url_for('static', filename='predictions/predictions.jpg') }}" alt="Predicted Image">
+                </figure>
+                <div class="heading-box">
+                    <h2>Detected Objects:</h2>
+                </div>
+                <ul>
+                    {% for obj in object_list %}
+                        <li>{{ obj }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
